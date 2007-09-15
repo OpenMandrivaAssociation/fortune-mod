@@ -24,7 +24,7 @@ Source0:	http://www.redellipse.net/code/downloads/%name-%version.tar.bz2
 # sources of fortune data files
 # when no URL is given it is because the data files are not on the internet.
 # they are either personal data I've collected myself trough the years;
-# or data that people sent me in my quality of i18n coordinator of Mandrake
+# or data that people sent me in my quality of i18n coordinator of Mandriva
 Source1:	http://crystal.u-strasbg.fr/glp.txt.bz2
 Source2:	COPYING.glp
 Source3:	http://crystal.u-strasbg.fr/cabale.txt.bz2
@@ -112,7 +112,7 @@ Requires:	%name
 %description -n	fortune-offensive
 This package includes the offensive cookies from the original
 fortune-mod distribution, that couldn't be included in the official
-Mandrake Linux distribution, so they are in PLF.
+Mandriva Linux distribution, so they are in PLF.
 
 %prep
 %setup -q
