@@ -15,7 +15,7 @@ Summary(fr):	Programme fortune cookie avec correction de bugs
 Summary(tr):	Rasgele, minik, sevimli mesajlar görüntüler
 Name:		fortune-mod
 Version:	%{ver}
-Release:	%mkrel 12
+Release:	%mkrel 13
 License:	BSD
 Group:		Toys
 # Sources of the program
@@ -330,5 +330,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_gamesdatadir}/fortunes/off/
 %endif
-
 
