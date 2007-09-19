@@ -243,7 +243,7 @@ rm -f %buildroot%{_gamesdatadir}/fortunes/off/*.old
     done
 )
 
-ln -s strfile.1.bz2 $RPM_BUILD_ROOT%{_mandir}/man1/unstr.1.bz2
+ln -s strfile.1%_extension $RPM_BUILD_ROOT%{_mandir}/man1/unstr.1%_extension
 #wrong paths in the man page:
 perl -pi -e 's!%buildroot!!' %buildroot%_mandir/man6/*
 
