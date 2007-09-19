@@ -7,7 +7,7 @@
 %endif
 
 Summary:	A program which will display a fortune
-Summary(cs):	Program suenka s vitbou (fortune cookie) s opravami chyb
+Summary(cs):	Program sušenka s věštbou (fortune cookie) s opravami chyb
 Summary(da):	fortune-cookie program med mange fejl rettelser
 Summary(de):	Glückskeks-Programm mit Bugfixes
 Summary(fi):	Paranneltu fortnue-ohjelma
@@ -15,7 +15,7 @@ Summary(fr):	Programme fortune cookie avec correction de bugs
 Summary(tr):	Rasgele, minik, sevimli mesajlar görüntüler
 Name:		fortune-mod
 Version:	%{ver}
-Release:	%mkrel 11
+Release:	%mkrel 12
 License:	BSD
 Group:		Toys
 # Sources of the program
@@ -62,10 +62,10 @@ Now it supports reading the LANG variable and choosing, if they exist,
 fortunes in the user language, when no parameter is given.
 
 %description -l cs
-Toto je trvale oblíbený program vìstící osud (fortune). Rád zobrazí
-náhodnou vì¹tbu, je-li spu¹tìn. Obvykle je legrace, kdy¾ se umístí
-do souboru .login pro u¾ivatele va¹eho systému, aby uvidìli nìco
-nového poka¾dé, kdy¾ se pøihlásí.
+Toto je trvale oblíbený program věstící osud (fortune). Rád zobrazí
+náhodnou věštbu, je-li spuštěn. Obvykle je legrace, když se umístí
+do souboru .login pro uživatele vašeho systému, aby uviděli něco
+nového pokaždé, když se přihlásí.
 
 %description -l da
 Dette er det altid populære 'fortune' program. Det vil gladeligt
@@ -99,10 +99,10 @@ frasi sul video. Gli utenti di solito lo aggiungono nel proprio .login
 per vedere delle frasi divertenti ogni volta si collegano.
 
 %description -l tr
-Fortune, her çaðrýldýðýnda büyük bir kitaplýktan rasgele seçeceði, eðlenceli
-bir metni görüntüleyecektir. Aþýrý bilimsel ve yararlý bir uygulama olmamasýna
-karþýn kullanýcýlarýn her sisteme baðlanýþýnda deðiþik bir mesajla
-karþýlaþmalarýný saðlar.
+Fortune, her çağrıldığında büyük bir kitaplıktan rasgele seçeceği, eğlenceli
+bir metni görüntüleyecektir. Aşırı bilimsel ve yararlı bir uygulama olmamasına
+karşın kullanıcıların her sisteme bağlanışında değişik bir mesajla
+karşılaşmalarını sağlar.
 
 %package -n	fortune-offensive
 Summary:	Offensive Cookies for the fortune program
