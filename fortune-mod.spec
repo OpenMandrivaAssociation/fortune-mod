@@ -46,7 +46,6 @@ Source18:	ftp://sunsite.unc.edu/pub/Linux/games/amusement/fortune-cs-1.2.4.tar.b
 Source19:	ftp://sunsite.unc.edu/pub/Linux/games/amusement/fortunes-hu-0.1.tar.bz2
 
 BuildRequires:	recode-devel recode
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Fortune-mod contains the ever-popular fortune program. Want a little
