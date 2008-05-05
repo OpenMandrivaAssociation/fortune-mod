@@ -1,11 +1,5 @@
 %define	ver	1.99.1
 
-%define build_plf 0
-%{?_with_plf: %{expand: %%global build_plf 1}}
-%if %build_plf
-%define distsuffix plf
-%endif
-
 Summary:	A program which will display a fortune
 Summary(cs):	Program sušenka s věštbou (fortune cookie) s opravami chyb
 Summary(da):	fortune-cookie program med mange fejl rettelser
@@ -15,7 +9,7 @@ Summary(fr):	Programme fortune cookie avec correction de bugs
 Summary(tr):	Rasgele, minik, sevimli mesajlar görüntüler
 Name:		fortune-mod
 Version:	%{ver}
-Release:	%mkrel 14
+Release:	%mkrel 15
 License:	BSD
 Group:		Toys
 # Sources of the program
@@ -104,16 +98,6 @@ bir metni görüntüleyecektir. Aşırı bilimsel ve yararlı bir uygulama olmam
 karşın kullanıcıların her sisteme bağlanışında değişik bir mesajla
 karşılaşmalarını sağlar.
 
-%package -n	fortune-offensive
-Summary:	Offensive Cookies for the fortune program
-Group:		Toys
-Requires:	%name
-
-%description -n	fortune-offensive
-This package includes the offensive cookies from the original
-fortune-mod distribution, that couldn't be included in the official
-Mandriva Linux distribution, so they are in PLF.
-
 %prep
 %setup -q
 
@@ -143,6 +127,9 @@ mkdir -p doc/cs
 tar xjf %{SOURCE18} && mv fortune-cs-1.2.4/{README,LICENSE,HISTORIE} doc/cs \
 	&& rm fortune-cs-1.2.4/{fortune-cs.lsm,install.sh} \
 	&& mv fortune-cs-1.2.4/* cs/
+cd cs
+for x in *;do recode l2..u8 $x;ln -s $x $x.u8; done
+cd ..
 
 chmod -R a+rX cs
 cp -var cs $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
@@ -150,8 +137,10 @@ cp -var cs $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
 # Spanish fortunes
 mkdir -p es
 mkdir -p doc/es
-bzcat %{SOURCE10} > es/azafra
-bzcat %{SOURCE11} > es/deprimente
+bzcat %{SOURCE10} |recode l1..u8 > es/azafra
+ln -s azafra es/azafra.u8
+bzcat %{SOURCE11} |recode l1..u8 > es/deprimente
+ln -s deprimente es/deprimente.u8
 
 chmod -R a+rX es
 cp -var es $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
@@ -159,15 +148,23 @@ cp -var es $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
 # French fortunes
 mkdir -p fr
 mkdir -p doc/fr
-tar xjf %{SOURCE4} -C fr/ && mkdir doc/fr/fortunes-fr && \
+tar xjf %{SOURCE4} -C fr/ && mkdir -p doc/fr/fortunes-fr && \
 	mv fr/README fr/COPYING fr/INSTALL fr/*.lsm doc/fr/fortunes-fr
 bzcat %{SOURCE1} | grep -v '^$' | sed 's/^-- /%/' > fr/glp \
 	&& cp %{SOURCE2} doc/fr
 bzcat %{SOURCE3} | grep -v '^$' | sed 's/^-- /%/' > fr/cabale
 bzcat %{SOURCE7} > fr/linuxfr && cp %{SOURCE8} doc/fr
-tar jyf %{SOURCE9} && mv ffr/data/* fr/ && rmdir ffr/data && \
-	 mkdir doc/fr/ffr && mv ffr/* doc/fr/ffr/
+tar xjf %{SOURCE9} && mv ffr/data/* fr/ && rmdir ffr/data && \
+	 mkdir -p doc/fr/ffr && mv ffr/* doc/fr/ffr/
 
+recode l1..u8 fr/cabale
+ln -s cabale fr/cabale.u8
+recode l1..u8 fr/france
+ln -s france fr/france.u8
+recode l1..u8 fr/linuxfr
+ln -s linuxfr fr/linuxfr.u8
+recode l1..u8 fr/glp
+ln -s glp fr/glp.u8
 chmod -R a+rX fr
 cp -var fr $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
 
@@ -177,16 +174,20 @@ mkdir -p doc/ga
 bzcat %{SOURCE15} > ga/proverbs && cat > doc/ga/proverbs << EOF
 Gaeilge proverbs from Damian Lyons and GAELIC-L (mailing list)
 EOF
-
+recode l1..u8 ga/proverbs
+ln -s proverbs ga/proverbs.u8
 chmod -R a+rX ga
 cp -var ga $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+
 
 # Hungarian fortunes
 mkdir -p hu
 mkdir -p doc/hu
 
-tar yxvf %{SOURCE19} && mv fortunes-hu/{README,OLVASSEL} doc/hu \
+tar xjvf %{SOURCE19} && mv fortunes-hu/{README,OLVASSEL} doc/hu \
 	&& mv fortunes-hu/hu/magyar hu/
+recode l1..u8 hu/magyar
+ln -s magyar hu/magyar.u8
 
 chmod -R a+rX hu
 cp -var hu $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
@@ -224,16 +225,13 @@ mkdir -p wa
 mkdir -p doc/wa
 bzcat %{SOURCE12} > wa/spots
 bzcat %{SOURCE16} > wa/walon
+recode l1..u8 wa/spots
+recode l1..u8 wa/walon
 
 chmod -R a+rX wa
 cp -var wa $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
 
 rm -rf %buildroot%{_gamesdatadir}/fortunes/off
-%if  %build_plf
-mkdir -p %buildroot%{_gamesdatadir}/fortunes/off
-install -m 644 datfiles/off/unrotated/* %buildroot%{_gamesdatadir}/fortunes/off
-rm -f %buildroot%{_gamesdatadir}/fortunes/off/*.old
-%endif
 
 (
     cd $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
@@ -324,10 +322,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man6/fortune.6*
 %{_mandir}/man1/strfile.1*
 %{_mandir}/man1/unstr.1*
-
-%if %build_plf
-%files -n fortune-offensive
-%defattr(644,root,root,755)
-%{_gamesdatadir}/fortunes/off/
-%endif
 
