@@ -9,7 +9,7 @@ Summary(fr):	Programme fortune cookie avec correction de bugs
 Summary(tr):	Rasgele, minik, sevimli mesajlar görüntüler
 Name:		fortune-mod
 Version:	%{ver}
-Release:	%mkrel 15
+Release:	%mkrel 16
 License:	BSD
 Group:		Toys
 # Sources of the program
@@ -226,7 +226,9 @@ mkdir -p doc/wa
 bzcat %{SOURCE12} > wa/spots
 bzcat %{SOURCE16} > wa/walon
 recode l1..u8 wa/spots
+ln -s spots wa/spots.u8
 recode l1..u8 wa/walon
+ln -s walon wa/walon.u8
 
 chmod -R a+rX wa
 cp -var wa $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
