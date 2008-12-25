@@ -9,7 +9,7 @@ Summary(fr):	Programme fortune cookie avec correction de bugs
 Summary(tr):	Rasgele, minik, sevimli mesajlar görüntüler
 Name:		fortune-mod
 Version:	%{ver}
-Release:	%mkrel 17
+Release:	%mkrel 18
 License:	BSD
 Group:		Toys
 # Sources of the program
@@ -38,7 +38,7 @@ Source16:	fortune-walon.txt.bz2
 Source17:	fortune-msg-id.tar.bz2
 Source18:	ftp://sunsite.unc.edu/pub/Linux/games/amusement/fortune-cs-1.2.4.tar.bz2
 Source19:	ftp://sunsite.unc.edu/pub/Linux/games/amusement/fortunes-hu-0.1.tar.bz2
-
+Patch0:		fortune-mod-1.99.1-LDFLAGS.diff
 BuildRequires:	recode-devel recode
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -100,9 +100,10 @@ karşılaşmalarını sağlar.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
-%make
+%make RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
