@@ -103,7 +103,7 @@ karşılaşmalarını sağlar.
 %patch0 -p1
 
 %build
-%make RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
+%make RPM_OPT_FLAGS="%{optflags} -fsigned-char" LDFLAGS="%{ldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
