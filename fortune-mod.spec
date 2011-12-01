@@ -106,12 +106,12 @@ karşılaşmalarını sağlar.
 %make RPM_OPT_FLAGS="%{optflags} -fsigned-char" LDFLAGS="%{ldflags}"
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %makeinstall_std prefix=%buildroot
-mkdir -p $RPM_BUILD_ROOT{%{_bindir}/,%_sbindir}
+mkdir -p %{buildroot}{%{_bindir}/,%_sbindir}
 mv %buildroot%_bindir/*str* %buildroot%_sbindir/
-cp util/rot $RPM_BUILD_ROOT%{_bindir}
+cp util/rot %{buildroot}%{_bindir}
 
 # extra english fortunes
 mkdir -p en
@@ -119,7 +119,7 @@ mkdir -p doc/en
 bzcat %{SOURCE6} > en/MS-FORTUNES
 
 chmod -R a+rX en
-cp en/* $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp en/* %{buildroot}%{_gamesdatadir}/fortunes/
 
 # Czech fortunes
 mkdir -p cs
@@ -133,7 +133,7 @@ for x in *;do recode l2..u8 $x;ln -s $x $x.u8; done
 cd ..
 
 chmod -R a+rX cs
-cp -var cs $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var cs %{buildroot}%{_gamesdatadir}/fortunes/
 
 # Spanish fortunes
 mkdir -p es
@@ -144,7 +144,7 @@ bzcat %{SOURCE11} |recode l1..u8 > es/deprimente
 ln -s deprimente es/deprimente.u8
 
 chmod -R a+rX es
-cp -var es $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var es %{buildroot}%{_gamesdatadir}/fortunes/
 
 # French fortunes
 mkdir -p fr
@@ -167,7 +167,7 @@ ln -s linuxfr fr/linuxfr.u8
 recode l1..u8 fr/glp
 ln -s glp fr/glp.u8
 chmod -R a+rX fr
-cp -var fr $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var fr %{buildroot}%{_gamesdatadir}/fortunes/
 
 # Gaeilge (Irish Gaelic) fortunes
 mkdir -p ga
@@ -178,7 +178,7 @@ EOF
 recode l1..u8 ga/proverbs
 ln -s proverbs ga/proverbs.u8
 chmod -R a+rX ga
-cp -var ga $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var ga %{buildroot}%{_gamesdatadir}/fortunes/
 
 
 # Hungarian fortunes
@@ -191,7 +191,7 @@ recode l1..u8 hu/magyar
 ln -s magyar hu/magyar.u8
 
 chmod -R a+rX hu
-cp -var hu $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var hu %{buildroot}%{_gamesdatadir}/fortunes/
 
 # Indonesian fortunes
 mkdir -p id
@@ -200,7 +200,7 @@ tar xjf %{SOURCE17} && mv fortune-msg-id/README doc/id && \
 	 mv fortune-msg-id/* id/
 
 chmod -R a+rX id
-cp -var id $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var id %{buildroot}%{_gamesdatadir}/fortunes/
 
 # Italian fortunes
 mkdir -p it
@@ -211,7 +211,7 @@ mv fortune.it-1.51/INSTALLAZIONE fortune.it-1.51/*.lsm doc/it
 mv fortune.it-1.51/* it/
 
 chmod -R a+rX it
-cp -var it $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var it %{buildroot}%{_gamesdatadir}/fortunes/
 
 # Japanese fortunes
 mkdir -p ja
@@ -219,7 +219,7 @@ mkdir -p doc/ja
 bzcat %{SOURCE13} > ja/kotowaza ; bzcat %{SOURCE14} > doc/ja/kotowaza.README
 
 chmod -R a+rX ja
-cp -var ja $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var ja %{buildroot}%{_gamesdatadir}/fortunes/
 
 # Walloon fortunes
 mkdir -p wa
@@ -232,24 +232,24 @@ recode l1..u8 wa/walon
 ln -s walon wa/walon.u8
 
 chmod -R a+rX wa
-cp -var wa $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var wa %{buildroot}%{_gamesdatadir}/fortunes/
 
 rm -rf %buildroot%{_gamesdatadir}/fortunes/off
 
 (
-    cd $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+    cd %{buildroot}%{_gamesdatadir}/fortunes/
     find * -name "*.dat" | xargs rm
     for i in `find * -type f` ; do
-        $RPM_BUILD_ROOT%{_sbindir}/strfile $i
+        %{buildroot}%{_sbindir}/strfile $i
     done
 )
 
-ln -s strfile.1%_extension $RPM_BUILD_ROOT%{_mandir}/man1/unstr.1%_extension
+ln -s strfile.1%_extension %{buildroot}%{_mandir}/man1/unstr.1%_extension
 #wrong paths in the man page:
 perl -pi -e 's!%buildroot!!' %buildroot%_mandir/man6/*
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(644,root,root,755)
