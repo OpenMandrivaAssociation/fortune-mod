@@ -1,0 +1,59 @@
+From: Jean Charles Delepine <delepine@cdcsp.univ-lyon1.fr>
+Subject: Re: Le Glp nouveau est arriv'e
+To: Chmouel Boudjnah <chmouel@mandrakesoft.com>
+Date: Wed, 12 May 1999 14:39:46 +0200 (CET)
+
+On 12 May 1999, Chmouel Boudjnah wrote:
+
+>  Jean Charles Delepine <delepine@neuronnexion.fr> writes:
+> 
+> >       http://crystal.u-strasbg.fr/glp.txt
+> 
+> 
+> cela te dérange pas que je le mette dans les fichiers du package
+> fortune pour la Mandrake ?
+
+Je songeais à le faire pour la Debian :-)
+
+Sinon, d'un point de vue licence ça donne ça : 
+
+-----------------------------------------------------------
+From: Jean Charles Delepine <delepine@lan.univ-lyon1.fr>
+Subject: Re: Le Glp nouveau est arriv'e
+Newsgroups: fr.misc.bavardages.linux
+Date: 12 May 1999 13:01:37 +0200
+
+frederic.petit@univ-mlv.fr (Frédéric Petit) writes:
+
+> nemeth@tinguely.laas.fr (Thomas Nemeth) writes:
+> 
+> > Jean Charles Delepine <delepine@neuronnexion.fr> a écrit :
+> > > 
+> > >       http://crystal.u-strasbg.fr/glp.txt
+> > 
+> > 	Merci :) il etait attendu impatiamment ;-)
+> Y a pas de droits d'auteur ?
+
+Si.
+
+J'y ajouterais bien ça (piqué à la faq-fcol :
+
+  Document Copyright © 1997-99 « Les utilisateurs des forums
+  fr.comp.os.linux.* »
+  Seule la diffusion des versions non modifiées est autorisée.
+
+  Intégrateur : Jean Charles Delépine <delepine@neuronnexion.fr>.
+
+Ceci s'appliquant à chaque signature prise séparément. (ne pas signer
+avec toutes les signatures à la fois :-)
+
+------------------------------------------------------------
+
+Il faudrait  le préciser dans un Readme.glp fournit avec le packet... Je
+ne considère pas l'ajout des '%' nécessaires au format fortune comme une
+modification.
+
+(Ce courier doit pouvoir faire office de Readme.glp :-))
+
+             Jean Charles
+
