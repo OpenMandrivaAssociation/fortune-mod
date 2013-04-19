@@ -1,5 +1,3 @@
-%define	ver	1.99.1
-
 Summary:	A program which will display a fortune
 Summary(cs):	Program sušenka s věštbou (fortune cookie) s opravami chyb
 Summary(da):	fortune-cookie program med mange fejl rettelser
@@ -8,13 +6,13 @@ Summary(fi):	Paranneltu fortnue-ohjelma
 Summary(fr):	Programme fortune cookie avec correction de bugs
 Summary(tr):	Rasgele, minik, sevimli mesajlar görüntüler
 Name:		fortune-mod
-Version:	%{ver}
+Version:	1.99.1
 Release:	26
 License:	BSD
 Group:		Toys
 # Sources of the program
-URL:		http://www.redellipse.net/code/fortune/
-Source0:	http://www.redellipse.net/code/downloads/%name-%version.tar.bz2
+Url:		http://www.redellipse.net/code/fortune/
+Source0:	http://www.redellipse.net/code/downloads/%{name}-%{version}.tar.bz2
 # sources of fortune data files
 # when no URL is given it is because the data files are not on the internet.
 # they are either personal data I've collected myself trough the years;
@@ -40,7 +38,6 @@ Source18:	ftp://sunsite.unc.edu/pub/Linux/games/amusement/fortune-cs-1.2.4.tar.b
 Source19:	ftp://sunsite.unc.edu/pub/Linux/games/amusement/fortunes-hu-0.1.tar.bz2
 Patch0:		fortune-mod-1.99.1-LDFLAGS.diff
 BuildRequires:	recode-devel recode
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Fortune-mod contains the ever-popular fortune program. Want a little
@@ -106,12 +103,10 @@ değişik bir mesajla karşılaşmalarını sağlar.
 %make RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-%makeinstall_std prefix=%buildroot
-mkdir -p $RPM_BUILD_ROOT{%{_bindir}/,%_sbindir}
-mv %buildroot%_bindir/*str* %buildroot%_sbindir/
-cp util/rot $RPM_BUILD_ROOT%{_bindir}
+%makeinstall_std prefix=%{buildroot}
+mkdir -p %{buildroot}{%{_bindir}/,%{_sbindir}}
+mv %{buildroot}%{_bindir}/*str* %{buildroot}%{_sbindir}/
+cp util/rot %{buildroot}%{_bindir}
 
 # extra english fortunes
 mkdir -p en
@@ -119,7 +114,7 @@ mkdir -p doc/en
 bzcat %{SOURCE6} > en/MS-FORTUNES
 
 chmod -R a+rX en
-cp en/* $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp en/* %{buildroot}%{_gamesdatadir}/fortunes/
 
 # Czech fortunes
 mkdir -p cs
@@ -133,7 +128,7 @@ for x in *;do recode l2..u8 $x;ln -s $x $x.u8; done
 cd ..
 
 chmod -R a+rX cs
-cp -var cs $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var cs %{buildroot}%{_gamesdatadir}/fortunes/
 
 # Spanish fortunes
 mkdir -p es
@@ -144,7 +139,7 @@ bzcat %{SOURCE11} |recode l1..u8 > es/deprimente
 ln -s deprimente es/deprimente.u8
 
 chmod -R a+rX es
-cp -var es $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var es %{buildroot}%{_gamesdatadir}/fortunes/
 
 # French fortunes
 mkdir -p fr
@@ -167,7 +162,7 @@ ln -s linuxfr fr/linuxfr.u8
 recode l1..u8 fr/glp
 ln -s glp fr/glp.u8
 chmod -R a+rX fr
-cp -var fr $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var fr %{buildroot}%{_gamesdatadir}/fortunes/
 
 # Gaeilge (Irish Gaelic) fortunes
 mkdir -p ga
@@ -178,7 +173,7 @@ EOF
 recode l1..u8 ga/proverbs
 ln -s proverbs ga/proverbs.u8
 chmod -R a+rX ga
-cp -var ga $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var ga %{buildroot}%{_gamesdatadir}/fortunes/
 
 
 # Hungarian fortunes
@@ -191,7 +186,7 @@ recode l1..u8 hu/magyar
 ln -s magyar hu/magyar.u8
 
 chmod -R a+rX hu
-cp -var hu $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var hu %{buildroot}%{_gamesdatadir}/fortunes/
 
 # Indonesian fortunes
 mkdir -p id
@@ -200,7 +195,7 @@ tar xjf %{SOURCE17} && mv fortune-msg-id/README doc/id && \
 	 mv fortune-msg-id/* id/
 
 chmod -R a+rX id
-cp -var id $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var id %{buildroot}%{_gamesdatadir}/fortunes/
 
 # Italian fortunes
 mkdir -p it
@@ -211,7 +206,7 @@ mv fortune.it-1.51/INSTALLAZIONE fortune.it-1.51/*.lsm doc/it
 mv fortune.it-1.51/* it/
 
 chmod -R a+rX it
-cp -var it $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var it %{buildroot}%{_gamesdatadir}/fortunes/
 
 # Japanese fortunes
 mkdir -p ja
@@ -219,7 +214,7 @@ mkdir -p doc/ja
 bzcat %{SOURCE13} > ja/kotowaza ; bzcat %{SOURCE14} > doc/ja/kotowaza.README
 
 chmod -R a+rX ja
-cp -var ja $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var ja %{buildroot}%{_gamesdatadir}/fortunes/
 
 # Walloon fortunes
 mkdir -p wa
@@ -232,27 +227,23 @@ recode l1..u8 wa/walon
 ln -s walon wa/walon.u8
 
 chmod -R a+rX wa
-cp -var wa $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+cp -var wa %{buildroot}%{_gamesdatadir}/fortunes/
 
-rm -rf %buildroot%{_gamesdatadir}/fortunes/off
+rm -rf %{buildroot}%{_gamesdatadir}/fortunes/off
 
 (
-    cd $RPM_BUILD_ROOT%{_gamesdatadir}/fortunes/
+    cd %{buildroot}%{_gamesdatadir}/fortunes/
     find * -name "*.dat" | xargs rm
     for i in `find * -type f` ; do
-        $RPM_BUILD_ROOT%{_sbindir}/strfile $i
+        %{buildroot}%{_sbindir}/strfile $i
     done
 )
 
-ln -s strfile.1%_extension $RPM_BUILD_ROOT%{_mandir}/man1/unstr.1%_extension
+ln -s strfile.1%_extension %{buildroot}%{_mandir}/man1/unstr.1%_extension
 #wrong paths in the man page:
-perl -pi -e 's!%buildroot!!' %buildroot%_mandir/man6/*
-
-%clean
-rm -rf $RPM_BUILD_ROOT
+sed -i -e 's!%{buildroot}!!' %{buildroot}%{_mandir}/man6/*
 
 %files
-%defattr(644,root,root,755)
 %doc README ChangeLog TODO 
 #%doc doc/en/*
 %lang(cs) %doc doc/cs
@@ -325,106 +316,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man6/fortune.6*
 %{_mandir}/man1/strfile.1*
 %{_mandir}/man1/unstr.1*
-
-
-
-%changelog
-* Tue May 03 2011 Oden Eriksson <oeriksson@mandriva.com> 1.99.1-22mdv2011.0
-+ Revision: 664349
-- mass rebuild
-
-* Thu Dec 02 2010 Oden Eriksson <oeriksson@mandriva.com> 1.99.1-21mdv2011.0
-+ Revision: 605212
-- rebuild
-
-* Wed Mar 17 2010 Oden Eriksson <oeriksson@mandriva.com> 1.99.1-20mdv2010.1
-+ Revision: 522669
-- rebuilt for 2010.1
-
-* Wed Sep 02 2009 Christophe Fergeau <cfergeau@mandriva.com> 1.99.1-19mdv2010.0
-+ Revision: 424476
-- rebuild
-
-* Thu Dec 25 2008 Oden Eriksson <oeriksson@mandriva.com> 1.99.1-18mdv2009.1
-+ Revision: 318824
-- use %%optflags and %%ldflags
-
-* Wed Aug 06 2008 Thierry Vignaud <tv@mandriva.org> 1.99.1-17mdv2009.0
-+ Revision: 264481
-- rebuild early 2009.0 package (before pixel changes)
-
-* Tue May 06 2008 Götz Waschk <waschk@mandriva.org> 1.99.1-16mdv2009.0
-+ Revision: 201798
-- add missing u8 symlinks
-
-* Mon May 05 2008 Götz Waschk <waschk@mandriva.org> 1.99.1-15mdv2009.0
-+ Revision: 201405
-- remove plf build option
-- convert some cookies to UTF-8 to solve bug #23716)
-- readd Hungarian cookies
-
-* Sat Jan 12 2008 Thierry Vignaud <tv@mandriva.org> 1.99.1-14mdv2008.1
-+ Revision: 150080
-- rebuild
-- kill re-definition of %%buildroot on Pixel's request
-
-  + Olivier Blin <oblin@mandriva.com>
-    - restore BuildRoot
-
-* Wed Sep 19 2007 Adam Williamson <awilliamson@mandriva.org> 1.99.1-13mdv2008.0
-+ Revision: 91068
-- rebuild for 2008
-
-* Wed Sep 19 2007 Thierry Vignaud <tv@mandriva.org> 1.99.1-12mdv2008.0
-+ Revision: 91051
-- convert to UTF-8 (#28397)
-- do not hardcode man page extension
-- s/Mandrake/Mandriva/
-
-
-* Wed Feb 28 2007 Götz Waschk <waschk@mandriva.org> 1.99.1-11mdv2007.0
-+ Revision: 127161
-- once more with feeling
-
-* Tue Feb 27 2007 Götz Waschk <waschk@mandriva.org> 1.99.1-10mdv2007.1
-+ Revision: 126733
-- convert the spec file to UTF-8, the maintainer was too busy
-
-* Tue Feb 27 2007 Götz Waschk <waschk@mandriva.org> 1.99.1-9mdv2007.1
-+ Revision: 126480
-- Import fortune-mod
-
-* Tue Feb 27 2007 Götz Waschk <waschk@mandriva.org> 1.99.1-9mdv2007.1
-- rebuild
-
-* Mon Sep 04 2006 Frederic Crozat <fcrozat@mandriva.com> 1.99.1-8mdv2007.0
-- Rebuild
-
-* Mon May 29 2006 Stefan van der Eijk <stefan@eijk.nu> 1.99.1-7mdk
-- fix Summary
-
-* Mon May 29 2006 Stefan van der Eijk <stefan@eijk.nu> 1.99.1-6mdk
-- %%mkrel
-
-* Wed Jun 09 2004 Per Øyvind Karlsen <peroyvind@linux-mandrake.com> 1.99.1-5mdk
-- update bzip2 parameter to tar
-
-* Sun May 23 2004 Per Øvind Karlsen <peroyvind@linux-mandrake.com> 1.99.1-4mdk
-- fix buildrequires
-- spec cosmetics
-- no .bz2 ending of man pages in %%files list
-
-* Fri May 21 2004 Oden Eriksson <oeriksson@mandrakesoft.com> 1.99.1-3mdk
-- fix deps
-- it will require librecode now, but the binary is only 18k (was 1.1MB)
-
-* Sun May 02 2004 Götz Waschk <waschk@linux-mandrake.com> 1.99.1-2mdk
-- fix buildroot in man page (bug #9649)
-
-* Sat Apr 03 2004 Götz Waschk <waschk@linux-mandrake.com> 1.99.1-1mdk
-- drop all patches
-- add new files
-- buildrequires recode-static-devel
-- add url
-- new version
 
