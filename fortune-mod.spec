@@ -6,13 +6,14 @@ Summary(fi):	Paranneltu fortnue-ohjelma
 Summary(fr):	Programme fortune cookie avec correction de bugs
 Summary(tr):	Rasgele, minik, sevimli mesajlar görüntüler
 Name:		fortune-mod
-Version:	1.99.1
-Release:	35
+Version:	2.6.2
+Release:	1
 License:	BSD
 Group:		Toys
 # Sources of the program
-Url:		http://www.redellipse.net/code/fortune/
-Source0:	http://www.redellipse.net/code/downloads/%{name}-%{version}.tar.bz2
+Url:		http://www.shlomifish.org/open-source/projects/fortune-mod/
+Source0:	https://github.com/shlomif/fortune-mod/archive/fortune-mod-%{version}.tar.gz
+Source100:	https://bitbucket.org/shlomif/shlomif-cmake-modules/raw/8f5acb6450c1a332cd95659c8de3df54d1d9d9a4/shlomif-cmake-modules/Shlomif_Common.cmake
 # sources of fortune data files
 # when no URL is given it is because the data files are not on the internet.
 # they are either personal data I've collected myself trough the years;
@@ -36,8 +37,8 @@ Source16:	fortune-walon.txt.bz2
 Source17:	fortune-msg-id.tar.bz2
 Source18:	ftp://sunsite.unc.edu/pub/Linux/games/amusement/fortune-cs-1.2.4.tar.bz2
 Source19:	ftp://sunsite.unc.edu/pub/Linux/games/amusement/fortunes-hu-0.1.tar.bz2
-Patch0:		fortune-mod-1.99.1-LDFLAGS.diff
 BuildRequires:	recode-devel recode
+BuildRequires:	cmake ninja
 
 %description
 Fortune-mod contains the ever-popular fortune program. Want a little
@@ -96,17 +97,22 @@ uygulama olmamasına karşın kullanıcıların her sisteme bağlanışında
 değişik bir mesajla karşılaşmalarını sağlar.
 
 %prep
-%setup -q
-%patch0 -p1
+echo %{_gamesdatadir}
+%autosetup -p1 -n %{name}-%{name}-%{version}/%{name}
+cp %{S:100} cmake/
+%cmake \
+	-G Ninja
 
 %build
-%make RPM_OPT_FLAGS="%{optflags}" LDFLAGS="%{ldflags}"
+%ninja_build -C build
 
 %install
-%makeinstall_std prefix=%{buildroot}
-mkdir -p %{buildroot}{%{_bindir}/,%{_sbindir}}
-mv %{buildroot}%{_bindir}/*str* %{buildroot}%{_sbindir}/
-cp util/rot %{buildroot}%{_bindir}
+%ninja_install -C build
+
+# "LOCAL" means "LOCAL", not "contains all prebuilt stuff"...
+mkdir -p %{buildroot}%{_gamesdatadir}
+mv %{buildroot}%{_prefix}/local/share/games/fortunes %{buildroot}%{_gamesdatadir}
+mkdir -p %{buildroot}%{_prefix}/local/share/games/fortunes/off
 
 # extra english fortunes
 mkdir -p en
@@ -255,10 +261,11 @@ sed -i -e 's!%{buildroot}!!' %{buildroot}%{_mandir}/man6/*
 %lang(it) %doc doc/it
 %lang(ja) %doc doc/ja
 #%lang(wa) %doc doc/wa
+%{_bindir}/rot
+%{_sbindir}/strfile
+%{_sbindir}/unstr
 %attr(755,root,root)%{_gamesbindir}/fortune
-%attr(755,root,root)%{_sbindir}/strfile
-%attr(755,root,root)%{_sbindir}/unstr
-%attr(755,root,root)%{_bindir}/rot
+%attr(755,root,root)%{_prefix}/local/share/games/fortunes
 %lang(cs) %{_gamesdatadir}/fortunes/cs
 %lang(es) %{_gamesdatadir}/fortunes/es
 %lang(fr) %{_gamesdatadir}/fortunes/fr
@@ -278,6 +285,7 @@ sed -i -e 's!%{buildroot}!!' %{buildroot}%{_mandir}/man6/*
 %{_gamesdatadir}/fortunes/debian
 %{_gamesdatadir}/fortunes/definitions
 %{_gamesdatadir}/fortunes/drugs
+%{_gamesdatadir}/fortunes/disclaimer
 %{_gamesdatadir}/fortunes/education
 %{_gamesdatadir}/fortunes/ethnic
 %{_gamesdatadir}/fortunes/food
@@ -302,11 +310,13 @@ sed -i -e 's!%{buildroot}!!' %{buildroot}%{_mandir}/man6/*
 %{_gamesdatadir}/fortunes/pets
 %{_gamesdatadir}/fortunes/platitudes
 %{_gamesdatadir}/fortunes/politics
+%{_gamesdatadir}/fortunes/pratchett
 %{_gamesdatadir}/fortunes/riddles
 %{_gamesdatadir}/fortunes/science
 %{_gamesdatadir}/fortunes/songs-poems
 %{_gamesdatadir}/fortunes/sports
 %{_gamesdatadir}/fortunes/startrek
+%{_gamesdatadir}/fortunes/tao
 %{_gamesdatadir}/fortunes/translate-me
 %{_gamesdatadir}/fortunes/wisdom
 %{_gamesdatadir}/fortunes/work
@@ -316,4 +326,3 @@ sed -i -e 's!%{buildroot}!!' %{buildroot}%{_mandir}/man6/*
 %{_mandir}/man6/fortune.6*
 %{_mandir}/man1/strfile.1*
 %{_mandir}/man1/unstr.1*
-
