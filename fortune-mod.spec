@@ -7,7 +7,7 @@ Summary(fr):	Programme fortune cookie avec correction de bugs
 Summary(tr):	Rasgele, minik, sevimli mesajlar görüntüler
 Name:		fortune-mod
 Version:	2.6.2
-Release:	1
+Release:	2
 License:	BSD
 Group:		Toys
 # Sources of the program
