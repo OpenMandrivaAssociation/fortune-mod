@@ -6,13 +6,13 @@ Summary(fi):	Paranneltu fortnue-ohjelma
 Summary(fr):	Programme fortune cookie avec correction de bugs
 Summary(tr):	Rasgele, minik, sevimli mesajlar görüntüler
 Name:		fortune-mod
-Version:	2.6.2
-Release:	2
+Version:	3.22.0
+Release:	1
 License:	BSD
 Group:		Toys
 # Sources of the program
 Url:		http://www.shlomifish.org/open-source/projects/fortune-mod/
-Source0:	https://github.com/shlomif/fortune-mod/archive/fortune-mod-%{version}.tar.gz
+Source0:	https://github.com/shlomif/fortune-mod/archive/fortune-mod-%{version}/fortune-mod-fortune-mod-%{version}.tar.gz
 Source100:	https://bitbucket.org/shlomif/shlomif-cmake-modules/raw/8f5acb6450c1a332cd95659c8de3df54d1d9d9a4/shlomif-cmake-modules/Shlomif_Common.cmake
 # sources of fortune data files
 # when no URL is given it is because the data files are not on the internet.
